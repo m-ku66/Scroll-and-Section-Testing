@@ -65,7 +65,16 @@ const CustomCursor = ({
         transition: "opacity 0.3s, transform 0.1s ease-out",
       }}
     >
-      <Image src="/Cursor.svg" alt="Cursor" width={size} height={size} />
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M21 6V1H16M1 6V1H6M16 21H21V16M6 21H1V16" stroke="#212121" />
+        <circle cx="11" cy="11" r="2.5" fill="#212121" />
+      </svg>{" "}
     </div>
   );
 };
