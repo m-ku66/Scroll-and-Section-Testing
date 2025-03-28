@@ -75,6 +75,7 @@ const CustomCursor = ({
         opacity: isVisible ? 1 : 0,
         transition: "opacity 0.3s, transform 0.1s ease-out",
       }}
+      className="hidden lg:block" // Hide on mobile
     >
       <svg
         width={size}
