@@ -20,6 +20,7 @@ const CustomCursor = ({
   const [position, setPosition] = useState({ x: -100, y: -100 }); // Start off-screen
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false); // New state for click tracking
 
   useEffect(() => {
     // Function to update cursor position
@@ -45,18 +46,26 @@ const CustomCursor = ({
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
+    // Click handlers
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
+
     // Add event listeners
     document.addEventListener("mousemove", updatePosition);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
 
     // Clean up
     return () => {
       document.removeEventListener("mousemove", updatePosition);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isVisible]);
+  }, [isVisible]); // No need to add isClicking to dependencies as we don't use it in the effect
 
   // Calculate the center offset
   const centerOffset = size / 2;
@@ -84,9 +93,13 @@ const CustomCursor = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{
-          // Apply scaling to the whole SVG instead of individual parts
-          transform: isHovering ? "scale(1.5)" : "scale(1)",
-          transition: "transform 0.2s ease-out",
+          // Apply scaling based on both hover and click states
+          transform: isClicking
+            ? "scale(0.5)" // When clicking, make it smaller
+            : isHovering
+            ? "scale(1.5)" // When hovering but not clicking
+            : "scale(1)", // Default state
+          transition: "transform 0.15s ease-out", // Smooth transition for all state changes
         }}
       >
         {/* Outer corners - no transform here */}
