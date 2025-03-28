@@ -8,7 +8,7 @@ export default function Home() {
       <ScreenWrapper>
         <PageSection
           bgColor="bg-rose-50"
-          parallaxStrength={0.9}
+          parallaxStrength={1}
           scaleOnScroll={true}
         >
           <div className="flex flex-col items-center gap-6">
@@ -22,7 +22,7 @@ export default function Home() {
 
         <PageSection
           bgColor="bg-blue-50"
-          parallaxStrength={0.9}
+          parallaxStrength={1}
           scaleOnScroll={true}
         >
           <div className="flex flex-col items-center gap-6">
@@ -30,20 +30,21 @@ export default function Home() {
               Second Section
             </h2>
             <p className="text-lg text-neutral-700 max-w-lg text-center">
-              This section has extra rotation effects when scrolling!
+              This section used to have extra rotation effects when scrolling!
             </p>
           </div>
         </PageSection>
 
         <PageSection
           bgColor="bg-amber-50"
-          parallaxStrength={0.9}
+          parallaxStrength={1}
           scaleOnScroll={true}
         >
           <div className="flex flex-col items-center gap-6">
             <h2 className="text-4xl font-bold tracking-tight">Final Section</h2>
             <p className="text-lg text-neutral-700 max-w-lg text-center">
-              Notice how this section scales slightly as you scroll through it.
+              Notice how this section scales slightly as you scroll through
+              it(well, all sections do this now lol).
             </p>
           </div>
         </PageSection>

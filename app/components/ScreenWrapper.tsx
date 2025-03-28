@@ -7,10 +7,8 @@ type ScreenWrapperProps = {
 };
 
 const ScreenWrapper = ({ children }: ScreenWrapperProps) => {
-  // Reference to the scroll container
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Get scroll progress
   const { scrollYProgress } = useScroll({
     container: containerRef,
   });
@@ -18,13 +16,13 @@ const ScreenWrapper = ({ children }: ScreenWrapperProps) => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen overflow-y-auto overflow-x-hidden scrollbar-hide"
+      className="relative w-full h-screen overflow-y-auto overflow-x-hidden"
       style={{
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
     >
-      {/* Pass scroll progress to children */}
+      {/* Children with scroll progress */}
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child as React.ReactElement<any>, {
@@ -34,11 +32,16 @@ const ScreenWrapper = ({ children }: ScreenWrapperProps) => {
         return child;
       })}
 
-      {/* Optional scroll progress indicator */}
-      <motion.div
-        className="fixed top-0 right-0 w-1 bg-neutral-800 origin-right z-50"
-        style={{ scaleY: scrollYProgress }}
-      />
+      {/* Scroll progress indicator */}
+      <div className="fixed top-0 right-10 w-1 h-full bg-transparent z-50">
+        <motion.div
+          className="w-full bg-neutral-800 origin-top"
+          style={{
+            scaleY: scrollYProgress,
+            height: "100%",
+          }}
+        />
+      </div>
     </div>
   );
 };

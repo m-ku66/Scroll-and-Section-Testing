@@ -20,9 +20,9 @@ const PageSection = ({
   rotateOnScroll = false,
   scaleOnScroll = false,
 }: PageSectionProps) => {
-  // Calculate effect strength based on parallaxStrength
-  const bgParallax = 50 * parallaxStrength; // Max 50%
-  const contentParallax = 15 * parallaxStrength; // Max 15%
+  // Calculate effect strength based on parallaxStrength - MUCH stronger now
+  const bgParallax = 100 * parallaxStrength; // Max 100% (doubled from 50%)
+  const contentParallax = 30 * parallaxStrength; // Max 30% (doubled from 15%)
 
   // Create parallax effect for background and content
   const backgroundY = useTransform(
@@ -37,18 +37,18 @@ const PageSection = ({
     ["0%", `-${contentParallax}%`]
   );
 
-  // Optional rotation effect
+  // Optional rotation effect (keeping but reducing for subtlety)
   const contentRotate = useTransform(
     scrollYProgress || new MotionValue(0),
     [0, 1],
-    [0, rotateOnScroll ? -5 : 0] // Rotate up to -5 degrees if enabled
+    [0, rotateOnScroll ? -2 : 0] // Reduced from -5 to -2 degrees
   );
 
   // Optional scale effect
   const contentScale = useTransform(
     scrollYProgress || new MotionValue(0),
     [0, 0.5, 1],
-    [1, scaleOnScroll ? 1.05 : 1, 1] // Scale up slightly in middle of scroll
+    [1, scaleOnScroll ? 1.1 : 1, 1] // Increased from 1.05 to 1.1 for more noticeable scale
   );
 
   return (
